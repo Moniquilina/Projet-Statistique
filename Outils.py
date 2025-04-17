@@ -1,5 +1,6 @@
 
 import random
+import re
 
 def cree_fichier_alea(nb, nomfichier):
     fichier = nomfichier    
@@ -16,23 +17,21 @@ def cree_fichier_alea(nb, nomfichier):
 
 def lit_fichier(nomfic):
     fichier = nomfic
-    LX= []
-    LY =[]
+    
     with open("fichiertest.txt", "r") as fichier:
-        Cor = fichier.read().split("\t")
-        #C =Cor.split(", ")      #cela va permettre d'ouvrir le fichier qui contient les coordonnées et de stocker les valeurs dans une liste
-        print(Cor)
-        for i in Cor :            
-                            
-            LX.append(Cor)
-            #LY.append(C[1])
+        Cor = fichier.read()
+        Cor_2= re.split(r"[\n, \t]", Cor)      #re.split() permet de separer les valeurs en fonctions des espaces ajoutés dans le fichier 
+                   
+        LX=Cor_2[0::2]
+        LY = Cor_2[1::2]                      #Creation des deux listes contenant les coordonées
+            
+                
 
-    print(LX, LY)
     
     with open(nomfic, "w") as fichier:
         
-        fichier.write(str(LX))
-        #fichier.write(str(LY))
+        fichier.write(str(LX)+"\n")
+        fichier.write(str(LY))
     print(fichier)
             
     
