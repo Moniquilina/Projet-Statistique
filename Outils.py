@@ -1,7 +1,7 @@
 
 import random
 import re
-import matplotlib as plt
+import matplotlib.pyplot as plt
 
 def cree_fichier_alea(nb, nomfichier):
     fichier = nomfichier    
@@ -39,11 +39,11 @@ def lit_fichier(nomfic):
     
 
 def trace_Nuage(nomf):
-    with open("coordonnées.txt", "r") as fichier:
-        fichier.read()
+    #with open("coordonnées.txt", "r") as fichier:
+        #fichier.read()
     LX= [1,2,3]
     LY = [0,3,6]
-    plt.plot(LX, LY, 'o')
+    plt.plot(LX, LY)
     plt.show()
 
 
@@ -58,3 +58,4 @@ def trace_Nuage(nomf):
 cree_fichier_alea(10, "fichiertest.txt")
 
 lit_fichier("coordonnées.txt")
+trace_Nuage("graph")
