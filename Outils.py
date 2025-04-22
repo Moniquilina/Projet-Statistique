@@ -3,6 +3,7 @@ import random
 import re
 import matplotlib.pyplot as plt
 
+
 def cree_fichier_alea(nb, nomfichier):
     fichier = nomfichier    
     with open(nomfichier, "w") as fichier: 
@@ -24,6 +25,7 @@ def lit_fichier(nomfic):
         Cor_2= re.split(r"[\n, \t]", Cor)      #re.split() permet de separer les valeurs en fonctions des espaces ajoutés dans le fichier 
                    
         LX=Cor_2[0::2]
+        LX.pop()
         LY = Cor_2[1::2]                      #Creation des deux listes contenant les coordonées
             
                 
@@ -39,12 +41,30 @@ def lit_fichier(nomfic):
     
 
 def trace_Nuage(nomf):
-    #with open("coordonnées.txt", "r") as fichier:
-        #fichier.read()
-    LX= [1,2,3]
-    LY = [0,3,6]
-    plt.plot(LX, LY)
-    plt.show()
+    with open("coordonnées.txt", "r") as fichier:
+        Cor=fichier.readlines()
+        LX=Cor[0]
+        LY=Cor[1]
+        
+        print(len(Cor[0]))
+        
+        
+    
+
+        
+    
+    #plt.plot(LX, LY)    
+    #
+    #plt.show()
+
+    with open(nomf, "w") as fichier:
+
+        fichier.write("Nombre de points=")
+        fichier.write(str(len(LX)))
+        
+    print(fichier)
+
+
 
 
 
