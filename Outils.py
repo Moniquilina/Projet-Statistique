@@ -35,6 +35,8 @@ def lit_fichier(nomfic):
         LX.pop()
         LY = Cor[1::2]                      #Creation des deux listes contenant les coordonées
 
+        LX= sorted(LX)
+        LY= sorted(LY)
         print(LX, LY)    
                 
 
@@ -55,22 +57,32 @@ def trace_Nuage(nomf):
         LY= Cor[1]
 
         LX=re.findall(r'[-+]?[0-9]*\.?[0-9]+', LX)
-        LY=re.findall(r'[-+]?[0-9]*\.?[0-9]+', LY)
+        LY=re.findall(r'[-+]?[0-9]*\.?[0-9]+', LY)              #re.findall permet d'extraire les nombres de la liste qui était sous forme de chaîne de caractères
+
+    print(LX)
+    i=0
+    
+    while i < len(LX):
+        LX[i] = float(LX[i])
+        LX[i]= "%.2f" % LX[i]
+        i += 1
+    
+    e=0
+    while e < len(LY):
+        LY[e] = float(LY[e])
+        LY[e]= "%.2f" % LY[e]
+        e += 1
         
-          
-        print(LX[0], LY)        
-        
-        
-        
-           
-        
-       
-    plt.plot(LX,LY,"o")
+    
+
+    
+    
+    plt.plot(LX, LY,"o")                                        #la fonction plt permet de générer le graphique
     
     plt.show()
 
     with open(nomf, "w") as fichier:
-        fichier.write("Nombre de points=")
+        fichier.write("Nombre de points:")
         fichier.write(str(len(LX)))
         
     print(fichier)
@@ -89,7 +101,7 @@ def trace_Nuage(nomf):
     
 
 
-cree_fichier_alea(5, "fichiertest.txt")
+cree_fichier_alea(20, "fichiertest.txt")
 
 lit_fichier("coordonnées.txt")
 trace_Nuage("graph")
