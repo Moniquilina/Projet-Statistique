@@ -4,6 +4,7 @@ import re
 import matplotlib.pyplot as plt
 
 
+
 def cree_fichier_alea(nb, nomfichier):
     fichier = nomfichier    
     with open(nomfichier, "w") as fichier: 
@@ -22,12 +23,19 @@ def lit_fichier(nomfic):
     
     with open("fichiertest.txt", "r") as fichier:
         Cor = fichier.read()
-        Cor_2= re.split(r"[\n, \t]", Cor)      #re.split() permet de separer les valeurs en fonctions des espaces ajoutés dans le fichier 
-                   
-        LX=Cor_2[0::2]
+        Cor= re.split(r"[\n, \t]", Cor)      #re.split() permet de separer les valeurs en fonctions des espaces ajoutés dans le fichier 
+
+        i=0
+        
+        while i < len(Cor)-1:
+               Cor[i] = float(Cor[i])
+               i += 1
+                
+        LX=Cor[0::2]
         LX.pop()
-        LY = Cor_2[1::2]                      #Creation des deux listes contenant les coordonées
-            
+        LY = Cor[1::2]                      #Creation des deux listes contenant les coordonées
+
+        print(LX, LY)    
                 
 
     
@@ -37,33 +45,39 @@ def lit_fichier(nomfic):
         fichier.write(str(LY))
     print(fichier)
             
-    
-    
 
 def trace_Nuage(nomf):
     with open("coordonnées.txt", "r") as fichier:
         Cor=fichier.readlines()
-        LX=Cor[0]
-        LY=Cor[1]
+        print(Cor)
         
-        print(len(Cor[0]))
-        
-        
-    
+        LX= Cor[0]
+        LY= Cor[1]
 
+        LX=re.findall(r'[-+]?[0-9]*\.?[0-9]+', LX)
+        LY=re.findall(r'[-+]?[0-9]*\.?[0-9]+', LY)
         
+          
+        print(LX[0], LY)        
+        
+        
+        
+           
+        
+       
+    plt.plot(LX,LY,"o")
     
-    #plt.plot(LX, LY)    
-    #
-    #plt.show()
+    plt.show()
 
     with open(nomf, "w") as fichier:
-
         fichier.write("Nombre de points=")
         fichier.write(str(len(LX)))
         
     print(fichier)
 
+#def trace_droite(a, b):
+
+
 
 
 
@@ -75,7 +89,7 @@ def trace_Nuage(nomf):
     
 
 
-cree_fichier_alea(10, "fichiertest.txt")
+cree_fichier_alea(5, "fichiertest.txt")
 
 lit_fichier("coordonnées.txt")
 trace_Nuage("graph")
