@@ -2,6 +2,7 @@
 import random
 import re
 import matplotlib.pyplot as plt
+import tkinter as tk
 
 
 
@@ -72,13 +73,10 @@ def trace_Nuage(nomf):
         LY[e] = float(LY[e])
         LY[e]= "%.2f" % LY[e]
         e += 1
-        
-    
-
-    
+   
     
     plt.plot(LX, LY,"o")                                        #la fonction plt permet de générer le graphique
-    
+    plt. grid(True)
     plt.show()
 
     with open(nomf, "w") as fichier:
@@ -87,7 +85,32 @@ def trace_Nuage(nomf):
         
     print(fichier)
 
-#def trace_droite(a, b):
+def trace_droite(a, b):
+    with open("coordonnées.txt", "r") as fichier:
+        X=fichier.readlines()
+        X= X[0]
+        print(X)
+        X=re.findall(r'[-+]?[0-9]*\.?[0-9]+', X)
+        
+        i=0    
+        while i < len(X):
+            X[i] = float(X[i])
+            i += 1
+        print(X)
+        
+        j = random.randint(0,100)
+        for j in range(len(X)):
+            X= X[j]
+            
+            y= a*x + b
+    plt.plot(x, y)
+    plt.show()
+        
+        
+    
+
+
+
 
 
 
@@ -105,3 +128,4 @@ cree_fichier_alea(20, "fichiertest.txt")
 
 lit_fichier("coordonnées.txt")
 trace_Nuage("graph")
+trace_droite(5,6)
