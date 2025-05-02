@@ -72,28 +72,21 @@ def trace_Nuage(nomf):
         
 
     CANVAS_WIDTH, CANVAS_HEIGHT = 800, 600
-    x=40
+    x=50
     root = tk.Tk()        
     canva = tk.Canvas(root, width=CANVAS_WIDTH, height=CANVAS_HEIGHT)
     
     canva.create_line(x, CANVAS_HEIGHT - x, CANVAS_WIDTH - x, CANVAS_HEIGHT - x) 
     canva.create_line(x, x, x, CANVAS_HEIGHT - x)  
-   
-    PX=[]
-    j=0
-    for j in range (len(LX)):                               #conversion des données en pixels
-        X=((float(LX[j]) - m) / (ma - m)) * (CANVAS_WIDTH*-2*x)
-        PX.append(X)
-        j+=1
-    PY=[]
-    h=0   
-    for h in range(len(LY)):   
-        Y =((float(LY[h]) - my) / (may - my)) *(CANVAS_HEIGHT-2*x)
-        PY.append(Y)
-        h+=1
-    for x,y in zip(PX,PY): 
-        for n in range(len(PX)):   
-            canva.create_oval(x-3, x+3, y-3, y+3, fill="green")     
+          
+    for x1,y1 in zip(LX,LY): 
+                                     
+        px= x+ (x1- m) / (ma - m) * (CANVAS_WIDTH-2*x)
+        py = CANVAS_HEIGHT-(x+ (y1 - my) / (may - my) *(CANVAS_HEIGHT-2*x))
+       
+        
+        canva.create_oval(px-3, py-3, px+3, py+3)
+             
 
        
     canva.pack()
