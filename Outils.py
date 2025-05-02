@@ -1,7 +1,6 @@
 
 import random
 import re
-import matplotlib.pyplot as plt
 import tkinter as tk
 
 
@@ -15,9 +14,8 @@ def cree_fichier_alea(nb, nomfichier):
             fichier.write(str(nb1) + "\t") 
             fichier.write(str(nb2) + "\n") #Fonction qui écrit les nombres des abscisses et ordonées dans le fichier généré
             
-            
-    
     print(fichier)
+
 
 def lit_fichier(nomfic):
     fichier = nomfic
@@ -35,13 +33,8 @@ def lit_fichier(nomfic):
         LX=Cor[0::2]
         LX.pop()
         LY = Cor[1::2]                      #Creation des deux listes contenant les coordonées
+            
 
-        LX= sorted(LX)
-        LY= sorted(LY)
-        print(LX, LY)    
-                
-
-    
     with open(nomfic, "w") as fichier:
         
         fichier.write(str(LX)+"\n")
@@ -52,7 +45,7 @@ def lit_fichier(nomfic):
 def trace_Nuage(nomf):
     with open("coordonnées.txt", "r") as fichier:
         Cor=fichier.readlines()
-        print(Cor)
+        
         
         LX= Cor[0]
         LY= Cor[1]
@@ -60,25 +53,53 @@ def trace_Nuage(nomf):
         LX=re.findall(r'[-+]?[0-9]*\.?[0-9]+', LX)
         LY=re.findall(r'[-+]?[0-9]*\.?[0-9]+', LY)              #re.findall permet d'extraire les nombres de la liste qui était sous forme de chaîne de caractères
 
-    print(LX)
-    i=0
-    
-    while i < len(LX):
-        LX[i] = float(LX[i])
-        LX[i]= "%.2f" % LX[i]
-        i += 1
-    
-    e=0
-    while e < len(LY):
-        LY[e] = float(LY[e])
-        LY[e]= "%.2f" % LY[e]
-        e += 1
-   
-    
-    plt.plot(LX, LY,"o")                                        #la fonction plt permet de générer le graphique
-    plt. grid(True)
-    plt.show()
 
+        i=0
+    
+        while i < len(LX):
+            LX[i] = float(LX[i])
+            #LX[i]= "%.2f" % LX[i]
+            i += 1
+        
+        e=0
+        while e < len(LY):
+            LY[e] = float(LY[e])
+            #LY[e]= "%.2f" % LY[e]
+            e += 1
+        
+    m= float(min(LX))
+    ma = float(max(LX))       
+    my= float(min(LY))
+    may = float(max(LY))        
+        
+
+    CANVAS_WIDTH, CANVAS_HEIGHT = 800, 600
+    x=100
+    root = tk.Tk()        
+    canva = tk.Canvas(root, width=CANVAS_WIDTH, height=CANVAS_HEIGHT)
+    
+    canva.create_line(x, CANVAS_HEIGHT - x, CANVAS_WIDTH - x, CANVAS_HEIGHT - x) 
+    canva.create_line(x, x, x, CANVAS_HEIGHT - x)
+
+    print(LX, LY)  
+    PX=[]
+    for j in range(len(LX)):            
+        X=((float(LX[j]) - m) / (ma - m))
+        CX= x + X * (CANVAS_WIDTH*-2*x)
+        PX.append(CX)
+    PY=[]
+    for z in range(len(LY)):
+        
+        Y =((float(LY[j]) - my) / (may - my))
+        CY= CANVAS_HEIGHT - x - Y *(CANVAS_HEIGHT-2*x)
+        PY.append(CY)
+    
+    
+    
+    canva.pack()
+    root.mainloop()
+            
+   
     with open(nomf, "w") as fichier:
         fichier.write("Nombre de points:")
         fichier.write(str(len(LX)))
@@ -91,21 +112,14 @@ def trace_droite(a, b):
         X= X[0]
         print(X)
         X=re.findall(r'[-+]?[0-9]*\.?[0-9]+', X)
-        
-        i=0    
-        while i < len(X):
-            X[i] = float(X[i])
-            i += 1
+
+        X=X[1]
+        X= float(X)
         print(X)
-        
-        j = random.randint(0,100)
-        for j in range(len(X)):
-            X= X[j]
-            
-            y= a*x + b
-    plt.plot(x, y)
-    plt.show()
-        
+
+        x=0    
+        y= a*X + b
+    
         
     
 
@@ -128,4 +142,4 @@ cree_fichier_alea(20, "fichiertest.txt")
 
 lit_fichier("coordonnées.txt")
 trace_Nuage("graph")
-trace_droite(5,6)
+#trace_droite(10,60)
