@@ -46,10 +46,9 @@ def trace_Nuage(nomf):
     with open("coordonnées.txt", "r") as fichier:
         Cor=fichier.readlines()
         
-        
         LX= Cor[0]
         LY= Cor[1]
-
+#
         LX=re.findall(r'[-+]?[0-9]*\.?[0-9]+', LX)
         LY=re.findall(r'[-+]?[0-9]*\.?[0-9]+', LY)              #re.findall permet d'extraire les nombres de la liste qui était sous forme de chaîne de caractères
 
@@ -58,44 +57,45 @@ def trace_Nuage(nomf):
     
         while i < len(LX):
             LX[i] = float(LX[i])
-            #LX[i]= "%.2f" % LX[i]
             i += 1
         
         e=0
         while e < len(LY):
             LY[e] = float(LY[e])
-            #LY[e]= "%.2f" % LY[e]
             e += 1
         
-    m= float(min(LX))
-    ma = float(max(LX))       
-    my= float(min(LY))
-    may = float(max(LY))        
+    m= min(LX)
+    ma = max(LX)       
+    my= min(LY)
+    may = max(LY)
+
         
 
     CANVAS_WIDTH, CANVAS_HEIGHT = 800, 600
-    x=100
+    x=40
     root = tk.Tk()        
     canva = tk.Canvas(root, width=CANVAS_WIDTH, height=CANVAS_HEIGHT)
     
     canva.create_line(x, CANVAS_HEIGHT - x, CANVAS_WIDTH - x, CANVAS_HEIGHT - x) 
-    canva.create_line(x, x, x, CANVAS_HEIGHT - x)
-
-    print(LX, LY)  
+    canva.create_line(x, x, x, CANVAS_HEIGHT - x)  
+   
     PX=[]
-    for j in range(len(LX)):            
-        X=((float(LX[j]) - m) / (ma - m))
-        CX= x + X * (CANVAS_WIDTH*-2*x)
-        PX.append(CX)
+    j=0
+    for j in range (len(LX)):                               #conversion des données en pixels
+        X=((float(LX[j]) - m) / (ma - m)) * (CANVAS_WIDTH*-2*x)
+        PX.append(X)
+        j+=1
     PY=[]
-    for z in range(len(LY)):
-        
-        Y =((float(LY[j]) - my) / (may - my))
-        CY= CANVAS_HEIGHT - x - Y *(CANVAS_HEIGHT-2*x)
-        PY.append(CY)
-    
-    
-    
+    h=0   
+    for h in range(len(LY)):   
+        Y =((float(LY[h]) - my) / (may - my)) *(CANVAS_HEIGHT-2*x)
+        PY.append(Y)
+        h+=1
+    for x,y in zip(PX,PY): 
+        for n in range(len(PX)):   
+            canva.create_oval(x-3, x+3, y-3, y+3, fill="green")     
+
+       
     canva.pack()
     root.mainloop()
             
@@ -139,7 +139,6 @@ def trace_droite(a, b):
 
 
 cree_fichier_alea(20, "fichiertest.txt")
-
 lit_fichier("coordonnées.txt")
 trace_Nuage("graph")
 #trace_droite(10,60)
