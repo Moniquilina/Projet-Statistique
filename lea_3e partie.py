@@ -23,8 +23,10 @@ def extraire_nombres():
     # Lire le fichier villes_virgule.csv et afficher toutes les données
     info_villes=pd.read_csv("villes_virgule.csv")
     print(info_villes)
-    nb_hab = info_villes.loc[info_villes["nb_hab_2010"]<=500, ["nb_hab_2010"] ]
-    nb_hab_12= info_villes.loc[info_villes["nb_hab_2012"]<=500, ["nb_hab_2012"] ]
-    print(nb_hab, nb_hab_12)
+    # Le programme demande à l'utilisateur la valeur qu'il veut saisir
+    nb=int(input("<= à combien?"))
+    #Cette fonction permet d'extraire le nombre d'habitants inférieure ou égale à la valeur choisi par l'utilisateur
+    nb_hab = info_villes.loc[info_villes["nb_hab_2010"]<=nb, ["nb_hab_2010","nb_hab_2012"] ]
+    print(nb_hab)
 
 extraire_nombres()
