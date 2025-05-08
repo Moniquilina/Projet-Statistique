@@ -92,25 +92,29 @@ def ajouter_point(event):
 
 
 # Création des boutons
-bouton_tracer = tk.Button(fenetre, text="Tracer la droite", command=calcul_correlation_et_droite)
-bouton_tracer.grid(row=1, column=0)
-
-bouton_couleur = tk.Button(fenetre, text="Autre couleur", command=changer_couleur)
-bouton_couleur.grid(row=1, column=1)
-
-bouton_quitter = tk.Button(fenetre, text="Quitter", command=fenetre.quit)
-bouton_quitter.grid(row=1, column=2)
-
 bouton_nuage = tk.Button(fenetre, text="Nuage Aléatoire", command=generer_nuage)
-bouton_nuage.grid(row=2, column=0, padx=5, pady=10)
-bouton_exemple = tk.Button(fenetre, text="Charger exemple", command=charger_exemple).grid(row=2, column=1, padx=5, pady=10)
+bouton_nuage.grid(row=1, column=0, padx=5, pady=5)
+
+bouton_exemple = tk.Button(fenetre, text="Charger Exemple", command=charger_exemple)
+bouton_exemple.grid(row=1, column=1, padx=5, pady=5)
+
+bouton_couleur = tk.Button(fenetre, text="Autre Couleur", command=changer_couleur)
+bouton_couleur.grid(row=1, column=2, padx=5, pady=5)
+
+# --- Boutons ligne 2 ---
+bouton_tracer = tk.Button(fenetre, text="Tracer la droite", command=calcul_correlation_et_droite)
+bouton_tracer.grid(row=2, column=0, padx=5, pady=5)
+
 bouton_dessin_on = tk.Button(fenetre, text="Activer Dessin", command=activer_dessin)
-bouton_dessin_on.grid(row=1, column=1)
+bouton_dessin_on.grid(row=2, column=1, padx=5, pady=5)
 
 bouton_dessin_off = tk.Button(fenetre, text="Désactiver Dessin", command=desactiver_dessin)
-bouton_dessin_off.grid(row=1, column=2)
+bouton_dessin_off.grid(row=2, column=2, padx=5, pady=5)
+
+# --- Bouton ligne 3 ---
 bouton_quitter = tk.Button(fenetre, text="Quitter", command=fenetre.quit)
-bouton_quitter.grid(row=2, column=2)
+bouton_quitter.grid(row=3, column=1, pady=10)
+
 
 canevas.bind("<Button-1>", ajouter_point)
 fenetre.mainloop()
