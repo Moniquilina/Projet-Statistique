@@ -93,7 +93,9 @@ def ajouter_point(event):
 
 
 
-def extraire_nombres():
+
+
+def extraire_nombre():
     # Lire le fichier ident_virgule.csv et afficher toutes les données
     iden = pd.read_csv("ident_virgule.csv")
     print(iden)
@@ -112,24 +114,26 @@ def extraire_nombres():
 
     # Sélectionner certaines colonnes et lignes spécifiques
     info=iden.loc[[0,1],['nom','date_naissance']]
-    print(info)
-    # Lire le fichier villes_virgule.csv et afficher toutes les données
     info_villes=pd.read_csv("villes_virgule.csv")
-    print(info_villes)
-    #Cette fonction permet d'extraire le nombre d'habitants inférieure ou égale à la valeur choisi par l'utilisateur
-    nb_hab = info_villes.loc[info_villes["nb_hab_2010"]<=500, ["nb_hab_2010","nb_hab_2012"] ]
-    print(nb_hab)
-
-def nombre():
-    info_villes=pd.read_csv("villes_virgule.csv")
-    print(info_villes)
+    
+    
     # Le programme demande à l'utilisateur la valeur qu'il veut saisir
     nb=entry.get()
     nb =int(nb)
     #Cette fonction permet d'extraire le nombre d'habitants inférieure ou égale à la valeur choisi par l'utilisateur
-    nb_hab = info_villes.loc[info_villes["nb_hab_2010"]<=nb, ["nb_hab_2010","nb_hab_2012"]]
-    print(nb_hab)
-    Outils.lit_fichier(nb_hab, "villes_virgules.csv")
+    nb_hab_10 = info_villes.loc[info_villes["nb_hab_2010"]<=nb, ["nb_hab_2010"]]
+    nb_hab_12 = info_villes.loc[info_villes["nb_hab_2012"]<=nb, ["nb_hab_2012"]]
+    nb_hab_10 = nb_hab_10.values.tolist()
+    nb_hab_12 = nb_hab_12.values.tolist()
+    print(nb_hab_10, nb_hab_12)
+    nb_hab_12 = int(nb_hab_12)
+    nb_hab_10= int(nb_hab_10)
+    for x, y in zip(nb_hab_10, nb_hab_12):
+        px = 40 + x * 520
+        py = 560 - y * 520
+        canevas.create_oval(px-3, py-3, px+3, py+3, fill="green")
+
+    
 
 
 
@@ -157,13 +161,13 @@ bouton_dessin_off.grid(row=2, column=2, padx=5, pady=5)
 bouton_quitter = tk.Button(fenetre, text="Quitter", command=fenetre.quit)
 bouton_quitter.grid(row=4, column=2, pady=10)
 
-bouton_extraire = tk.Button(fenetre, text = "Extraire", command = extraire_nombres)
-bouton_extraire.grid(row=3, column=0, padx=5, pady=5)
+#bouton_extraire = tk.Button(fenetre, text = "Extraire", command = extraire_nombres)
+#bouton_extraire.grid(row=3, column=0, padx=5, pady=5)
 
-bouton_valider= tk.Button(fenetre, text= "Valider", command= nombre)
-bouton_valider.grid(row= 3, column= 2, padx = 5, pady = 5)
+bouton_valider= tk.Button(fenetre, text= "Valider", command= extraire_nombre)
+bouton_valider.grid(row= 3, column= 1, padx = 5, pady = 5)
 
-entry.grid(row= 3, column= 1, padx = 1, pady = 1)
+entry.grid(row= 3, column= 0, padx = 1, pady = 1)
 
 canevas.bind("<Button-1>", ajouter_point)
 fenetre.mainloop()
