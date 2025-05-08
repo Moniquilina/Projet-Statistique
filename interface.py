@@ -1,7 +1,10 @@
 import tkinter as tk 
 import random
+import Outils
+import projet_info
+
 fenetre = tk.Tk()
-fenetre.title("interface V1")
+fenetre.title("projet stat")
 #je creer le canvas
 canevas = tk.Canvas(fenetre, width=800, height=800, bg='white')
 canevas.grid(row=0, column=0, columnspan=3, pady=0)
