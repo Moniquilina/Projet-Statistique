@@ -123,18 +123,28 @@ def extraire_nombre():
     #Cette fonction permet d'extraire le nombre d'habitants inférieure ou égale à la valeur choisi par l'utilisateur
     nb_hab_10 = info_villes.loc[info_villes["nb_hab_2010"]<=nb, ["nb_hab_2010"]]
     nb_hab_12 = info_villes.loc[info_villes["nb_hab_2012"]<=nb, ["nb_hab_2012"]]
-    nb_hab_10 = nb_hab_10.values.tolist()
-    nb_hab_12 = nb_hab_12.values.tolist()
-    print(nb_hab_10, nb_hab_12)
-    nb_hab_12 = int(nb_hab_12)
-    nb_hab_10= int(nb_hab_10)
+    nb_hab_10 = nb_hab_10["nb_hab_2010"].tolist()
+    nb_hab_12 = nb_hab_12["nb_hab_2012"].tolist()
+    
+    print(nb_hab_10)   
+    print(nb_hab_12)
+    effacer_canevas()
+    calcul_correlation_et_droite()
     for x, y in zip(nb_hab_10, nb_hab_12):
-        px = 40 + x * 520
-        py = 560 - y * 520
+        px = 40 + x * 5
+        py = 520 - y * 5
         canevas.create_oval(px-3, py-3, px+3, py+3, fill="green")
 
+def donees_r():
+    donnes= pd.read_csv("appart.csv")
     
-
+    #Cette fonction permet d'extraire le nombre d'habitants inférieure ou égale à la valeur choisi par l'utilisateur
+    surf = donnes.loc[donnes["SURF"]<=50, ["SURF"]]
+    prix = donnes.loc[donnes["PRIX"]<=600, ["PRIX"]]
+    #nb_hab_10 = nb_hab_10["nb_hab_2010"].tolist()
+    #nb_hab_12 = nb_hab_12["nb_hab_2012"].tolist()
+    print(surf, prix)
+    
 
 
 # Création des boutons
@@ -161,11 +171,11 @@ bouton_dessin_off.grid(row=2, column=2, padx=5, pady=5)
 bouton_quitter = tk.Button(fenetre, text="Quitter", command=fenetre.quit)
 bouton_quitter.grid(row=4, column=2, pady=10)
 
-#bouton_extraire = tk.Button(fenetre, text = "Extraire", command = extraire_nombres)
-#bouton_extraire.grid(row=3, column=0, padx=5, pady=5)
-
 bouton_valider= tk.Button(fenetre, text= "Valider", command= extraire_nombre)
 bouton_valider.grid(row= 3, column= 1, padx = 5, pady = 5)
+
+bouton_valider= tk.Button(fenetre, text= "donées réeles", command= donees_r)
+bouton_valider.grid(row= 3, column= 2, padx = 5, pady = 5)
 
 entry.grid(row= 3, column= 0, padx = 1, pady = 1)
 

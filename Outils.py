@@ -29,9 +29,9 @@ def lit_fichier(nomfic):
         LY.append(y)
     return LX, LY
 
-def trace_Nuage():
+def trace_Nuage(nomf):
     """Affiche un nuage de points à partir d'un fichier."""
-    LX, LY = lit_fichier("fichiertest.txt")
+    LX, LY = lit_fichier(nomf)
     m = min(LX)
     ma = max(LX)
     my = min(LY)
