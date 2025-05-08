@@ -1,7 +1,7 @@
 import tkinter as tk 
 import random
-import Outils
 import projet_info
+import Outils
 fenetre = tk.Tk()
 fenetre.title("projet stat")
 # Je crée le canvas
