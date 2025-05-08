@@ -6,6 +6,18 @@ CANVAS_WIDTH, CANVAS_HEIGHT = 800, 600
 l=40
 root= tk.Tk()
 canva = tk.Canvas(root, width=CANVAS_WIDTH, height=CANVAS_HEIGHT)
+bouton_tracer = tk.Button(root, text="tracer la droite", command=tracer_ligne)
+bouton_tracer.grid(row=1, column=0)
+
+bouton_couleur = tk.Button(root, text="Autre couleur", command=changer_couleur)
+bouton_couleur.grid(row=1, column=1)
+
+bouton_quitter = tk.Button(root, text="Quitter", command=root.quit)
+bouton_quitter.grid(row=1, column=2)
+
+
+
+
 def cree_fichier_alea(nb, nomfichier):
     fichier = nomfichier    
     with open(nomfichier, "w") as fichier: 
