@@ -1,18 +1,32 @@
 import tkinter as tk 
 import random
-fenetre = tk.Tk()
-fenetre.title("projet stat")
-#je creer le canvas
-canevas = tk.Canvas(fenetre, width=800, height=800, bg='white')
-canevas.grid(row=0, column=0, columnspan=3, pady=0)
-couleurs = ['red', 'blue', 'green', 'yellow', 'purple', 'orange'] #liste des couleurs dispo
-couleur_actuelle = 'red'
-def changer_couleur():#definir la fonction pour le changement de couleur 
-    global couleur_actuelle
-    couleur_actuelle = random.choice(couleurs)
-#creer les boutons 
 import Outils
 import projet_info
+
+fenetre = tk.Tk()
+fenetre.title("projet stat")
+
+# Je crée le canvas
+canevas = tk.Canvas(fenetre, width=800, height=800, bg='white')
+canevas.grid(row=0, column=0, columnspan=3, pady=0)
+
+couleurs = ['red', 'blue', 'green', 'yellow', 'purple', 'orange']  # Liste des couleurs disponibles
+couleur_actuelle = 'red'
+
+# Initialisation des points (variables globales)
+pointsX = []
+pointsY = []
+
+def changer_couleur():  # Définir la fonction pour le changement de couleur 
+    global couleur_actuelle
+    couleur_actuelle = random.choice(couleurs)
+
+def effacer_canevas():
+    canevas.delete("all")
+
+def tracer_ligne():  # Fonction pour tracer une ligne
+    canevas.create_line(10, 10, 200, 800, fill=couleur_actuelle, width=3)
+
 def generer_nuage():
     """Génère un nuage de points aléatoires et les affiche."""
     global pointsX, pointsY
@@ -53,7 +67,8 @@ def calcul_correlation_et_droite():
     else:
         print("Corrélation faible, pas de droite tracée.")
 
-bouton_tracer = tk.Button(fenetre, text="tracer la droite", command= calcul_correlation_et_droite)  # Changement ici)
+# Création des boutons
+bouton_tracer = tk.Button(fenetre, text="Tracer la droite", command=calcul_correlation_et_droite)
 bouton_tracer.grid(row=1, column=0)
 
 bouton_couleur = tk.Button(fenetre, text="Autre couleur", command=changer_couleur)
@@ -61,7 +76,12 @@ bouton_couleur.grid(row=1, column=1)
 
 bouton_quitter = tk.Button(fenetre, text="Quitter", command=fenetre.quit)
 bouton_quitter.grid(row=1, column=2)
-bouton_nuage=tk.Button(fenetre, text="Nuage Aléatoire", command=generer_nuage).grid(row=2, column=0, padx=5, pady=10)
-bouton_exemple = tk.Button(fenetre, text="Charger exemple", command=charger_exemple).grid(row=2, column=1, padx=5, pady=10)
+
+bouton_nuage = tk.Button(fenetre, text="Nuage Aléatoire", command=generer_nuage)
+bouton_nuage.grid(row=2, column=0, padx=5, pady=10)
+
+bouton_exemple = tk.Button(fenetre, text="Charger exemple", command=charger_exemple)
+bouton_exemple.grid(row=2, column=1, padx=5, pady=10)
 
 fenetre.mainloop()
+
