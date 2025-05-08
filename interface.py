@@ -2,10 +2,8 @@ import tkinter as tk
 import random
 import Outils
 import projet_info
-
 fenetre = tk.Tk()
 fenetre.title("projet stat")
-
 # Je crée le canvas
 canevas = tk.Canvas(fenetre, width=800, height=800, bg='white')
 canevas.grid(row=0, column=0, columnspan=3, pady=0)
@@ -66,7 +64,8 @@ def calcul_correlation_et_droite():
         canevas.create_line(px1, py1, px2, py2, fill=couleur_actuelle, width=2)
     else:
         print("Corrélation faible, pas de droite tracée.")
-
+import Outils
+import projet_info
 # Création des boutons
 bouton_tracer = tk.Button(fenetre, text="Tracer la droite", command=calcul_correlation_et_droite)
 bouton_tracer.grid(row=1, column=0)
