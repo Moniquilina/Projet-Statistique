@@ -36,15 +36,6 @@ def generer_nuage():
         py = 560 - y * 520
         canevas.create_oval(px-3, py-3, px+3, py+3, fill="green")
 
-def charger_exemple():
-    """Charge les points depuis le fichier exemple.txt et les affiche."""
-    global pointsX, pointsY
-    effacer_canevas()
-    pointsX, pointsY = Outils.lit_fichier("exemple.txt")  # Lit les points depuis exemple.txt
-    for x, y in zip(pointsX, pointsY):
-        px = 40 + x * 520
-        py = 560 - y * 520
-        canevas.create_oval(px-3, py-3, px+3, py+3, fill="blue")
 
 def calcul_correlation_et_droite():
     """Calcule la corrélation et trace la droite de régression si elle est pertinente."""
@@ -78,9 +69,6 @@ bouton_quitter.grid(row=1, column=2)
 
 bouton_nuage = tk.Button(fenetre, text="Nuage Aléatoire", command=generer_nuage)
 bouton_nuage.grid(row=2, column=0, padx=5, pady=10)
-
-bouton_exemple = tk.Button(fenetre, text="Charger exemple", command=charger_exemple)
-bouton_exemple.grid(row=2, column=1, padx=5, pady=10)
 
 fenetre.mainloop()
 
