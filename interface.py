@@ -2,11 +2,12 @@ import tkinter as tk
 import random
 import projet_info
 import Outils
+import pandas as pd
 
 fenetre = tk.Tk()
 fenetre.title("projet stat")
 # Je crée le canvas
-canevas = tk.Canvas(fenetre, width=800, height=800, bg='white')
+canevas = tk.Canvas(fenetre, width=800, height=600, bg='white')
 canevas.grid(row=0, column=0, columnspan=3, pady=0)
 
 couleurs = ['red', 'blue', 'green', 'yellow', 'purple', 'orange']  # Liste des couleurs disponibles
@@ -87,6 +88,8 @@ def ajouter_point(event):
         pointsX.append(x)
         pointsY.append(y)
         canevas.create_oval(event.x - 3, event.y - 3, event.x + 3, event.y + 3, fill="blue")
+
+
 
 # Création des boutons
 bouton_nuage = tk.Button(fenetre, text="Nuage Aléatoire", command=generer_nuage)
