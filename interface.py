@@ -2,6 +2,7 @@ import tkinter as tk
 import random
 import projet_info
 import Outils
+
 fenetre = tk.Tk()
 fenetre.title("projet stat")
 # Je crée le canvas
@@ -36,6 +37,31 @@ def generer_nuage():
         py = 560 - y * 520
         canevas.create_oval(px-3, py-3, px+3, py+3, fill="green")
 
+def charger_exemple():
+    """Charge les points depuis le fichier exemple.txt et les affiche."""
+    global pointsX, pointsY
+    effacer_canevas()
+
+    # Lire les points depuis exemple.txt
+    # Assurez-vous que le fichier 'exemple.txt' existe et est valide
+    with open('exemple.txt', 'r') as fichier:
+        lignes = fichier.readlines()
+
+        # Initialisation des listes de coordonnées
+        pointsX = []
+        pointsY = []
+
+        for ligne in lignes:
+            x, y = map(float, ligne.split())  # Convertir les valeurs en float
+            pointsX.append(x)
+            pointsY.append(y)
+
+        # Affichage des points sur le canevas
+        for x, y in zip(pointsX, pointsY):
+            px = 40 + x * 520
+            py = 560 - y * 520
+            canevas.create_oval(px-3, py-3, px+3, py+3, fill="blue")
+
 
 def calcul_correlation_et_droite():
     """Calcule la corrélation et trace la droite de régression si elle est pertinente."""
@@ -55,8 +81,6 @@ def calcul_correlation_et_droite():
         canevas.create_line(px1, py1, px2, py2, fill=couleur_actuelle, width=2)
     else:
         print("Corrélation faible, pas de droite tracée.")
-import Outils
-import projet_info
 # Création des boutons
 bouton_tracer = tk.Button(fenetre, text="Tracer la droite", command=calcul_correlation_et_droite)
 bouton_tracer.grid(row=1, column=0)
@@ -69,6 +93,6 @@ bouton_quitter.grid(row=1, column=2)
 
 bouton_nuage = tk.Button(fenetre, text="Nuage Aléatoire", command=generer_nuage)
 bouton_nuage.grid(row=2, column=0, padx=5, pady=10)
-
+bouton_exemple = tk.Button(fenetre, text="Charger exemple", command=charger_exemple).grid(row=2, column=1, padx=5, pady=10)
 fenetre.mainloop()
 
