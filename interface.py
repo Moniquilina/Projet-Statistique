@@ -29,7 +29,7 @@ def tracer_ligne():  # Fonction pour tracer une ligne
     canevas.create_line(10, 10, 200, 800, fill=couleur_actuelle, width=3)
 
 def generer_nuage():
-    """Génère un nuage de points aléatoires et les affiche."""
+    #Génère un nuage de points aléatoires et les affiche.
     global pointsX, pointsY
     effacer_canevas()
     Outils.cree_fichier_alea(50, "nuage.txt")  # Génère un fichier avec 50 points
@@ -41,7 +41,7 @@ def generer_nuage():
 
 
 def charger_exemple():
-    """Charge les points depuis le fichier exemple.txt et les affiche."""
+    #Charge les points depuis le fichier exemple.txt et les affiche.
     global pointsX, pointsY
     effacer_canevas()
     Outils.cree_fichier_alea(50, "exemple.txt")  # Génère un fichier avec 50 points du fichier
@@ -54,7 +54,7 @@ def charger_exemple():
     
 
 def calcul_correlation_et_droite():
-    """Calcule la corrélation et trace la droite de régression si elle est pertinente."""
+    #Calcule la corrélation et trace la droite de régression si elle est pertinente.
     if len(pointsX) < 2:
         print("Pas assez de points pour calculer la corrélation.")
         return
@@ -115,6 +115,7 @@ def extraire_nombre():
     # Sélectionner certaines colonnes et lignes spécifiques
     info=iden.loc[[0,1],['nom','date_naissance']]
     info_villes=pd.read_csv("villes_virgule.csv")
+    print(info_villes)
     
     
     # Le programme demande à l'utilisateur la valeur qu'il veut saisir
@@ -123,28 +124,36 @@ def extraire_nombre():
     #Cette fonction permet d'extraire le nombre d'habitants inférieure ou égale à la valeur choisi par l'utilisateur
     nb_hab_10 = info_villes.loc[info_villes["nb_hab_2010"]<=nb, ["nb_hab_2010"]]
     nb_hab_12 = info_villes.loc[info_villes["nb_hab_2012"]<=nb, ["nb_hab_2012"]]
+    #.tolist permet de changer le format des données dans une liste pour transformer ces valeurs dans des coordonées
     nb_hab_10 = nb_hab_10["nb_hab_2010"].tolist()
     nb_hab_12 = nb_hab_12["nb_hab_2012"].tolist()
-    
-    print(nb_hab_10)   
+    print(nb_hab_10)
     print(nb_hab_12)
-    effacer_canevas()
-    calcul_correlation_et_droite()
+       
+    effacer_canevas()    
     for x, y in zip(nb_hab_10, nb_hab_12):
         px = 40 + x * 5
         py = 520 - y * 5
         canevas.create_oval(px-3, py-3, px+3, py+3, fill="green")
+    calcul_correlation_et_droite()
 
 def donees_r():
-    donnes= pd.read_csv("appart.csv")
+    donnes= pd.read_csv("FD_DEC_2021.csv", sep=";", dtype={"JNAIS": int, "sexe":int}, low_memory = False)
     
-    #Cette fonction permet d'extraire le nombre d'habitants inférieure ou égale à la valeur choisi par l'utilisateur
-    surf = donnes.loc[donnes["SURF"]<=50, ["SURF"]]
-    prix = donnes.loc[donnes["PRIX"]<=600, ["PRIX"]]
-    #nb_hab_10 = nb_hab_10["nb_hab_2010"].tolist()
-    #nb_hab_12 = nb_hab_12["nb_hab_2012"].tolist()
-    print(surf, prix)
+    mort= donnes.loc[donnes["JNAIS"]<=30, ["JNAIS"]]
+    mort_s= donnes.loc[donnes["sexe"]<=2, ["sexe"]]
+    mort=mort["JNAIS"].tolist()
+    mort_s = mort_s["sexe"].tolist()
+        
+    effacer_canevas()   
     
+    for x, y in zip(mort, mort_s):
+        px = 40 + x*100
+        py = 520 - y * 100
+        canevas.create_oval(px-3, py-3, px+3, py+3, fill="green")
+    
+
+       
 
 
 # Création des boutons
